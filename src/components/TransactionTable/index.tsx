@@ -1,13 +1,23 @@
 import {TransactionTableContainer} from "./styles";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {api} from "../../services/api";
 
+type Transactions = {
+    id: number,
+    title: string,
+    type: string,
+    category: string,
+    amount: number,
+    createdAt: Date,
+}
+
 export const TransactionTable = () => {
+    const [transactions, setTransactions] = useState<Transactions[]>([])
 
     useEffect(() => {
         api.get('transactions')
-            .then(({data}) => console.log(data))
-    }, [])
+            .then(({data: {transactions}}) => setTransactions(transactions))
+    }, [transactions])
 
     return (
         <TransactionTableContainer>
@@ -21,24 +31,17 @@ export const TransactionTable = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Development</td>
-                    <td>R$12.000</td>
-                    <td>Programming</td>
-                    <td>20/02/2021</td>
-                </tr>
-                <tr>
-                    <td>Development</td>
-                    <td className="deposit">R$12.000</td>
-                    <td>Programming</td>
-                    <td>20/02/2021</td>
-                </tr>
-                <tr>
-                    <td>Development</td>
-                    <td className="withdraw">-R$12.000</td>
-                    <td>Programming</td>
-                    <td>20/02/2021</td>
-                </tr>
+                {transactions.map(({
+                                       id, type, amount
+                                       , category, createdAt, title
+                                   }) =>
+                    <tr key={id}>
+                        <td>{title}</td>
+                        <td className={type}>{amount}</td>
+                        <td>{category}</td>
+                        <td>{createdAt}</td>
+                    </tr>
+                )}
                 </tbody>
             </table>
         </TransactionTableContainer>
