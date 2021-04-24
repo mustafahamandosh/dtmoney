@@ -3,7 +3,7 @@ import {useContext} from "react";
 import {TransactionContexts} from "../../TransactionContexts";
 
 export const TransactionTable = () => {
-    const transactions = useContext(TransactionContexts)
+    const {transactions} = useContext(TransactionContexts)
     return (
         <TransactionTableContainer>
             <table>
@@ -16,10 +16,7 @@ export const TransactionTable = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {transactions.map(({
-                                       id, type, amount
-                                       , category, createdAt, title
-                                   }) =>
+                {transactions.map(({id, type, amount, category, createdAt, title}) =>
                     <tr key={id}>
                         <td>{title}</td>
                         <td className={type}>
