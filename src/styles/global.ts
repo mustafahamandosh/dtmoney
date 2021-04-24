@@ -51,6 +51,7 @@ export const GlobalStyle = createGlobalStyle`
     opacity: 0.6;
     cursor: not-allowed;
   }
+  
   .react-modal-overlay{
     background: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -70,5 +71,17 @@ export const GlobalStyle = createGlobalStyle`
     padding: 3rem;
     position: relative;
     border-radius: 0.25rem;
+  }
+  
+  .react-modal-close{
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    border: 0;
+    background: transparent;
+    transition: filter .2s;
+    &:hover{
+      filter: brightness(0.8);
+    }
   }
 `;
