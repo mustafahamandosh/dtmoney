@@ -1,12 +1,15 @@
 import LogoImg from '../../assets/logo.svg'
 import {HeaderContainer, HeaderContent} from "./styles";
 
-export const Header = () => {
+type HeaderProps = {
+    onOpenNewTransactionModal: () => void
+}
+export const Header = ({onOpenNewTransactionModal}: HeaderProps) => {
     return (
         <HeaderContainer>
             <HeaderContent>
                 <img src={LogoImg} alt="Logo image"/>
-                <button>
+                <button onClick={onOpenNewTransactionModal}>
                     New Transaction
                 </button>
             </HeaderContent>
