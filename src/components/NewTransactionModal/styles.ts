@@ -12,7 +12,7 @@ type RadioBoxProps = {
 }
 
 
-export const NewTransactionContainer = styled.div`
+export const NewTransactionContainer = styled.form`
   h2 {
     color: var(--title);
     font-size: 1.5rem;
