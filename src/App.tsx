@@ -4,6 +4,7 @@ import {createServer} from 'miragejs'
 import {Dashboard} from "./components/Dashboard";
 import Modal from "react-modal";
 import {useState} from "react";
+import {NewTransactionModal} from "./components/NewTransactionModal";
 
 createServer(({
     routes() {
@@ -24,19 +25,30 @@ createServer(({
 }))
 
 Modal.setAppElement('#root')
+
 export function App() {
     const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false)
+
     const handleOpenNewTransactionModal = () => {
         setIsNewTransactionModalOpen(true)
     }
+
+    const handleOnRequestClose = () => {
+        setIsNewTransactionModalOpen(false)
+    }
+
     return (
         <>
             <Header onOpenNewTransactionModal={handleOpenNewTransactionModal}/>
+
             <Dashboard/>
-            <Modal isOpen={isNewTransactionModalOpen}
-                   onRequestClose={() => setIsNewTransactionModalOpen(false)}>
+
+            <NewTransactionModal
+                isOpen={isNewTransactionModalOpen}
+                onRequestClose={handleOnRequestClose}>
                 <h2>Create new transaction</h2>
-            </Modal>
+            </NewTransactionModal>
+
             <GlobalStyle/>
         </>
     );
