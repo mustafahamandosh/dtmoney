@@ -1,8 +1,8 @@
 import Modal from "react-modal";
 import React, {useState} from "react";
 import CloseImg from '../../assets/close.svg'
-import OutcomeImg from '../../assets/income.svg'
-import IncomeImg from '../../assets/outcome.svg'
+import OutcomeImg from '../../assets/outcome.svg'
+import IncomeImg from '../../assets/income.svg'
 import {NewTransactionContainer, RadioBox, TransactionButtons} from "./styles";
 
 type NewTransactionModalProps = {
@@ -31,13 +31,15 @@ export const NewTransactionModal = ({isOpen, onRequestClose}: NewTransactionModa
                 <TransactionButtons>
                     <RadioBox type="button"
                               onClick={() => setType('deposit')}
-                              isActive={type === 'deposit'}>
+                              isActive={type === 'deposit'}
+                              activeColor="green">
                         <img src={IncomeImg} alt="Income"/>
                         <span>Income</span>
                     </RadioBox>
                     <RadioBox type="button"
                               onClick={() => setType('withdraw')}
-                              isActive={type === 'withdraw'}>
+                              isActive={type === 'withdraw'}
+                              activeColor="red">
                         <img src={OutcomeImg} alt="Outcome"/>
                         <span>Outcome</span>
                     </RadioBox>

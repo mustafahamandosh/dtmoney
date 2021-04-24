@@ -1,5 +1,16 @@
-import styled, {css} from "styled-components";
-import {darken} from "polished";
+import styled from "styled-components";
+import {darken, transparentize} from "polished";
+
+const colors = {
+    green: '#33cc95',
+    red: '#e52e4d'
+}
+
+type RadioBoxProps = {
+    isActive: boolean;
+    activeColor: 'green' | 'red';
+}
+
 
 export const NewTransactionContainer = styled.div`
   h2 {
@@ -55,9 +66,6 @@ export const TransactionButtons = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
 `
-type RadioBoxProps = {
-    isActive: boolean;
-}
 
 export const RadioBox = styled.button<RadioBoxProps>`
   height: 4rem;
@@ -67,6 +75,8 @@ export const RadioBox = styled.button<RadioBoxProps>`
   align-items: center;
   justify-content: center;
   transition: border-color .2s;
+  background: ${({isActive, activeColor}) =>
+          isActive ? transparentize(0.9, colors[activeColor]) : 'transparent'};
 
   &:hover {
     border-color: ${darken(0.1, '#d7d7d7')};
@@ -84,7 +94,4 @@ export const RadioBox = styled.button<RadioBoxProps>`
     color: var(--text-title);
   }
 
-  ${({isActive}) => isActive && css`
-    background: red`
-  };
 `
