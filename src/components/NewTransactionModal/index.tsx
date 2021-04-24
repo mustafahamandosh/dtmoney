@@ -4,6 +4,7 @@ import CloseImg from '../../assets/close.svg'
 import OutcomeImg from '../../assets/outcome.svg'
 import IncomeImg from '../../assets/income.svg'
 import {NewTransactionContainer, RadioBox, TransactionButtons} from "./styles";
+import {api} from "../../services/api";
 
 type NewTransactionModalProps = {
     isOpen: boolean;
@@ -17,10 +18,13 @@ export const NewTransactionModal = ({isOpen, onRequestClose}: NewTransactionModa
 
     const handleNewTransaction = useCallback((e: FormEvent) => {
         e.preventDefault()
-        console.log(title)
-        console.log(value)
-        console.log(category)
-        console.log(buttonType)
+        const data = {
+            title,
+            category,
+            value,
+            buttonType
+        }
+        api.post('/transactions', data).then(r => console.log(r))
     }, [title, value, category, buttonType])
 
     return (
