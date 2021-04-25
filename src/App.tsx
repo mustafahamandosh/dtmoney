@@ -4,7 +4,7 @@ import {createServer, Model} from 'miragejs'
 import {Dashboard} from "./components/Dashboard";
 import Modal from "react-modal";
 import {useState} from "react";
-import {TransactionsProvider} from "./TransactionContexts";
+import {TransactionsProvider} from "./hooks/useTransactionContexts";
 import {NewTransactionModal} from "./components/NewTransactionModal";
 
 createServer(({
