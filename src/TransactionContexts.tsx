@@ -18,7 +18,7 @@ type CreateTransaction = Omit<Transaction, 'id' | 'createdAt'>
 
 type TransactionContextsProps = {
     transactions: Transaction[];
-    createNewTransaction: (transaction: CreateTransaction) => void;
+    createNewTransaction: (transaction: CreateTransaction) => Promise<void>;
 }
 
 export const TransactionContexts = createContext<TransactionContextsProps>({} as TransactionContextsProps);
@@ -31,8 +31,10 @@ export const TransactionsProvider = ({children}: TransactionsProviderProps) => {
             .then(({data: {transactions}}) => setTransactions(transactions))
     }, [])
 
-    const createNewTransaction = (transaction: CreateTransaction) => {
-        api.post('/transactions', transaction).then(r => console.log(r))
+    const createNewTransaction = async (createTransaction: CreateTransaction) => {
+        const {data} = await api.post('/transactions', {...createTransaction, createdAt: new Date()})
+        const {transaction} = data;
+        setTransactions([...transactions, transaction])
     }
 
     return (

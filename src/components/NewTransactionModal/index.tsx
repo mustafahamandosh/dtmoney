@@ -6,26 +6,32 @@ import IncomeImg from '../../assets/income.svg'
 import {NewTransactionContainer, RadioBox, TransactionButtons} from "./styles";
 import {TransactionContexts} from "../../TransactionContexts";
 
+
 type NewTransactionModalProps = {
     isOpen: boolean;
     onRequestClose: () => void;
 }
+
 export const NewTransactionModal = ({isOpen, onRequestClose}: NewTransactionModalProps) => {
-    const transactions = useContext(TransactionContexts)
+    const {createNewTransaction} = useContext(TransactionContexts)
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState('')
     const [amount, setAmount] = useState(0)
     const [type, setType] = useState('deposit')
 
-    const handleNewTransaction = useCallback((e: FormEvent) => {
+    const handleNewTransaction = useCallback(async (e: FormEvent) => {
         e.preventDefault()
-        const data = {
+        await createNewTransaction({
             title,
             category,
             amount,
-            type: type
-        }
-        transactions.createNewTransaction(data)
+            type
+        })
+        setTitle('')
+        setAmount(0)
+        setCategory('')
+        setType('deposit')
+        onRequestClose()
     }, [title, amount, category, type])
 
     return (
